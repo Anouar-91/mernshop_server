@@ -100,10 +100,19 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc Get all users
+// @route GET /api/users
+// @access Private/Admin
+const getUsers = asyncHandler(async (req, res) => {
+    const users = await User.find({})
+    res.json(users)
+})
+
 
 export {
     authUser,
     getUserProfile,
     registerUser,
-    updateUserProfile
+    updateUserProfile,
+    getUsers
 }

@@ -28,6 +28,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @route GET /api/users/profile
 // @access Private
 const getUserProfile = asyncHandler(async (req, res) => {
+    console.log('je suis iciiii')
     const user = await User.findById(req.user._id)
     if(user){
         res.json({

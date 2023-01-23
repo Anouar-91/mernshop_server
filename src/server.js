@@ -5,6 +5,9 @@ import productRoutes from './routes/productRoutes';
 import userRoutes from './routes/userRoutes';
 import {notFound, errorHandler} from './middleware/errorMiddleware';
 import orderRoutes from './routes/orderRoutes';
+import uploadRoutes from './routes/uploadRoutes';
+import path from 'path';
+import fs from 'fs';
 
 dotenv.config();
 connectDb();
@@ -22,10 +25,32 @@ app.get('/', (req, res) => {
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/upload', uploadRoutes);
 
 app.use('/api/config/paypal', (req, res) => {
     res.send(process.env.PAYPAL_CLIENT_ID)
 });
+
+const imageDirectory = path.join(`${__dirname}/../`, 'uploads');
+
+app.get('/uploads/:imageName', (req, res) => {
+    // Récupération du nom de l'image à partir de la requête
+    const imageName = req.params.imageName;
+    // construire le chemin complet de l'image
+    const imagePath = path.join(imageDirectory, imageName);
+    console.log(imagePath)
+    // Vérifiez si l'image existe dans le répertoire
+    if (fs.existsSync(imagePath)) {
+        // Envoi de l'image en réponse
+        res.sendFile(imagePath);
+    } else {
+        // Envoi d'une réponse d'erreur
+        res.status(404).send('Image not found');
+    }
+});
+/* const __dirname = path.resolve()
+app.use('uploads', express.static(path.join(__dirname, '/uploads'))) */
+
 
 //middleware not found
 app.use(notFound)

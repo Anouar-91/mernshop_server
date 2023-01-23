@@ -38,7 +38,6 @@ app.get('/uploads/:imageName', (req, res) => {
     const imageName = req.params.imageName;
     // construire le chemin complet de l'image
     const imagePath = path.join(imageDirectory, imageName);
-    console.log(imagePath)
     // Vérifiez si l'image existe dans le répertoire
     if (fs.existsSync(imagePath)) {
         // Envoi de l'image en réponse

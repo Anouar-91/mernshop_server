@@ -8,10 +8,15 @@ import orderRoutes from './routes/orderRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 import path from 'path';
 import fs from 'fs';
+import morgan from 'morgan';
 
 dotenv.config();
 connectDb();
 const app = express();
+
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan("dev"))
+}
 //allow to accept json in body
 app.use(express.json())
 

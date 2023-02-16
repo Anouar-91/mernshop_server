@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec ./node_modules/.bin/babel-node src/server",
+    "start": "nodemon --exec babel-node src/server",
     "server": "nodemon src/server",
     "data:import": "babel-node src/fixtures/importData",
     "data:destroy": "babel-node src/fixtures/destroyData"

@@ -6,7 +6,6 @@
   "scripts": {
     "start": "nodemon --exec babel-node src/server",
     "server": "nodemon src/server",
-    "build": "babel-node src -d build",
     "data:import": "babel-node src/fixtures/importData",
     "data:destroy": "babel-node src/fixtures/destroyData"
   },

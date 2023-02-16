@@ -7,7 +7,8 @@
     "start": "nodemon --exec babel-node src/server",
     "server": "nodemon src/server",
     "data:import": "babel-node src/fixtures/importData",
-    "data:destroy": "babel-node src/fixtures/destroyData"
+    "data:destroy": "babel-node src/fixtures/destroyData",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "author": "",
   "license": "ISC",

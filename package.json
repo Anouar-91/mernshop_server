@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "nodemon --exec babel-node src/server",
-    "server": "nodemon src/server",
-    "data:import": "babel-node src/fixtures/importData",
-    "data:destroy": "babel-node src/fixtures/destroyData"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -24,8 +18,17 @@
     "nodemon": "^2.0.20"
   },
   "devDependencies": {
+    "@babel/cli": "^7.21.0",
     "@babel/core": "^7.19.6",
     "@babel/node": "^7.19.1",
     "@babel/preset-env": "^7.19.4"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server",
+    "build": "babel src -d build",
+    "start": "node build/server.js",
+    "server": "nodemon src/server",
+    "data:import": "babel-node src/fixtures/importData",
+    "data:destroy": "babel-node src/fixtures/destroyData"
   }
 }

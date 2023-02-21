@@ -23,7 +23,7 @@ app.use(express.json())
 let cors = require("cors");
 app.use(cors({
 
-    origin: [process.env.CLIENT_URL, "http://localhost:3000"],
+    origin: "*",
     methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
     credentials: true,
 }));

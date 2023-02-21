@@ -34,6 +34,7 @@ const upload = (0, _multer.default)({
   }
 });
 router.post('/', upload.single("image"), (req, res) => {
+  console.log("je suis dans lupload image");
   res.send(`${req.file.path}`);
 });
 var _default = router;

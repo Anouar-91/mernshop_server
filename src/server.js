@@ -22,7 +22,7 @@ app.use(express.json())
 
 let cors = require("cors");
 app.use(cors({
-    origin: [ "https://brilliant-licorice-c691cc.netlify.app","https://mernshop.herokuapp.com/",process.env.CLIENT_URL, "http://localhost:3000"],
+    origin: [ "https://brilliant-licorice-c691cc.netlify.app","https://mernshop.herokuapp.com",process.env.CLIENT_URL, "http://localhost:3000", "*"],
     methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
     credentials: true,
 }));

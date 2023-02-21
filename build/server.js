@@ -21,7 +21,11 @@ if (process.env.NODE_ENV === 'development') {
 //allow to accept json in body
 app.use(_express.default.json());
 let cors = require("cors");
-app.use(cors());
+app.use(cors({
+  origin: [process.env.CLIENT_URL, "http://localhost:3000"],
+  methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
+  credentials: true
+}));
 app.get('/', (req, res) => {
   res.send('API is running...');
 });

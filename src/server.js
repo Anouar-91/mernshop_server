@@ -21,7 +21,12 @@ if(process.env.NODE_ENV === 'development'){
 app.use(express.json())
 
 let cors = require("cors");
-app.use(cors());
+app.use(cors({
+
+    origin: [process.env.CLIENT_URL, "http://localhost:3000"],
+    methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+}));
 
 app.get('/', (req, res) => {
     res.send('API is running...')

@@ -20,7 +20,6 @@ const addOrderItems = (0, _expressAsyncHandler.default)(async (req, res) => {
     shippingPrice,
     totalPrice
   } = req.body;
-  console.error(shippingPrice, "shippingPrice");
   if (orderItems && orderItems.length === 0) {
     res.status(400);
     throw new Error('No order items found');

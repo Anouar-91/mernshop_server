@@ -9,12 +9,17 @@ var _multer = _interopRequireDefault(require("multer"));
 var _path = _interopRequireDefault(require("path"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const router = _express.default.Router();
+function slugify(str) {
+  console.log("slugify function");
+  return str.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
+}
 const storage = _multer.default.diskStorage({
   destination(req, res, cb) {
-    cb(null, 'uploads/');
+    console.log(`${__dirname}/../../uploads/`, "TEST");
+    cb(null, `${__dirname}/../../uploads/`);
   },
   filename(req, file, cb) {
-    cb(null, `${file.originalname}-${Date.now()}${_path.default.extname(file.originalname)}`);
+    cb(null, `${slugify(file.originalname)}-${Date.now()}${_path.default.extname(file.originalname)}`);
   }
 });
 function checkFileType(file, cb) {

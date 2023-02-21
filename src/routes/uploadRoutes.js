@@ -4,12 +4,24 @@ import path from 'path'
 
 const router = express.Router();
 
+function slugify(str){
+    console.log("slugify function")
+    return str
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 const storage = multer.diskStorage({
     destination(req, res, cb){
-        cb(null, 'uploads/')
+        console.log(`${__dirname}/../../uploads/`, "TEST")
+
+        cb(null, `${__dirname}/../../uploads/`)
     },
     filename(req, file, cb){
-        cb(null, `${file.originalname}-${Date.now()}${path.extname(file.originalname)}`)
+        cb(null, `${slugify(file.originalname)}-${Date.now()}${path.extname(file.originalname)}`)
     }
 })
 

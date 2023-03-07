@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateProduct = exports.getTopProducts = exports.getProducts = exports.getProductById = exports.deleteProduct = exports.createProductReview = exports.createProduct = void 0;
+exports.updateProduct = exports.getTopProducts = exports.getProductsForReactQuery = exports.getProducts = exports.getProductById = exports.deleteProduct = exports.createProductReview = exports.createProduct = void 0;
 var _productModel = _interopRequireDefault(require("../models/productModel"));
 var _expressAsyncHandler = _interopRequireDefault(require("express-async-handler"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -32,10 +32,37 @@ const getProducts = (0, _expressAsyncHandler.default)(async (req, res) => {
   });
 });
 
+// @desc Fetch all products for client use react-query
+// @route GET /api/products/react-query
+// @access Public
+exports.getProducts = getProducts;
+const getProductsForReactQuery = (0, _expressAsyncHandler.default)(async (req, res) => {
+  //code for react query  
+  const keyword = req.query.keyword ? {
+    name: {
+      $regex: req.query.keyword,
+      $options: 'i'
+    }
+  } : {};
+  const page = parseInt(req.query.page) || 0;
+  const perPage = 3;
+  const start = page * perPage;
+  const end = start + perPage;
+  const products = await _productModel.default.find({
+    ...keyword
+  });
+  console.log(products);
+  const productsForPage = products.slice(start, end);
+  res.json({
+    productsForPage,
+    hasMore: end < products.length
+  });
+});
+
 // @desc Fetch all products
 // @route GET /api/products
 // @access Public
-exports.getProducts = getProducts;
+exports.getProductsForReactQuery = getProductsForReactQuery;
 const getProductById = (0, _expressAsyncHandler.default)(async (req, res) => {
   const product = await _productModel.default.findById(req.params.id);
   if (product) {

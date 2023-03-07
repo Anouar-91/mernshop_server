@@ -10,6 +10,7 @@ var _authMiddleware = require("../middleware/authMiddleware");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const router = _express.default.Router();
 router.route('/').get(_productController.getProducts);
+router.route('/react-query/').get(_productController.getProductsForReactQuery);
 router.route('/top').get(_productController.getTopProducts);
 router.route('/').post(_authMiddleware.protect, _authMiddleware.admin, _productController.createProduct);
 router.route('/:id/reviews').post(_authMiddleware.protect, _productController.createProductReview);

@@ -20,6 +20,27 @@ const getProducts = asyncHandler(async (req, res) => {
     res.json({products, page, pages: Math.ceil(count / pageSize)});
 })
 
+// @desc Fetch all products for client use react-query
+// @route GET /api/products/react-query
+// @access Public
+const getProductsForReactQuery = asyncHandler(async (req, res) => {
+    //code for react query  
+    const keyword = req.query.keyword ? {
+        name:{
+            $regex: req.query.keyword,
+            $options : 'i'
+        }
+    } : {}
+    const page = parseInt(req.query.page) || 0
+    const perPage = 3
+    const start = page * perPage
+    const end = start + perPage
+    const products = await Product.find({...keyword})
+    console.log(products);
+    const productsForPage = products.slice(start, end)
+    res.json({productsForPage,hasMore: end < products.length, });
+})
+
 // @desc Fetch all products
 // @route GET /api/products
 // @access Public
@@ -141,5 +162,6 @@ export {
     updateProduct,
     createProduct,
     createProductReview,
-    getTopProducts
+    getTopProducts,
+    getProductsForReactQuery
 }
